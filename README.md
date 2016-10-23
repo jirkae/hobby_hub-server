@@ -1,1 +1,2 @@
-# hobby_hub-server
+# Backend (API) HobbyHub
+
