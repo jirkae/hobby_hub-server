@@ -2,5 +2,15 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "MongoHobbyHub": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "MongoHobbyHub",
+    "password": "",
+    "name": "MongoHobbyHub",
+    "user": "",
+    "connector": "mongodb"
   }
 }
