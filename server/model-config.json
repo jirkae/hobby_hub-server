@@ -14,7 +14,8 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "db",
+    "public": false
   },
   "AccessToken": {
     "dataSource": "db",
@@ -25,14 +26,18 @@
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "MongoHobbyHub",
     "public": false
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "MongoHobbyHub",
     "public": false
   },
   "Event": {
+    "dataSource": "MongoHobbyHub",
+    "public": true
+  },
+  "AuthUser": {
     "dataSource": "MongoHobbyHub",
     "public": true
   }
