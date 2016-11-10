@@ -1,0 +1,27 @@
+{
+  "name": "AuthUser",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "events": {
+      "type": "hasMany",
+      "model": "Event",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__create__events"
+    }
+  ],
+  "methods": {}
+}
