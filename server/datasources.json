@@ -7,10 +7,10 @@
     "host": "localhost",
     "port": 27017,
     "url": "",
-    "database": "MongoHobbyHub",
-    "password": "",
+    "database": "user_team03",
+    "password": "xpi9ih3gpah7hm51",
     "name": "MongoHobbyHub",
-    "user": "",
+    "user": "team03",
     "connector": "mongodb"
   }
 }

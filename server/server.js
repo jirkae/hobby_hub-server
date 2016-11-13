@@ -24,6 +24,6 @@ boot(app, __dirname, function(err) {
   if (err) throw err;
 
   // start the server if `$ node server.js`
-  if (require.main === module)
+  if (require.main === module || GLOBAL.PhusionPassenger)
     app.start();
 });
