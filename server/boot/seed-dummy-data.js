@@ -18,13 +18,19 @@ module.exports = function(app) {
       if (count == 0) {
         Event.create([
           {
-            name: 'Bird watching in Prague ',
-            description: 'Let us go hunt some birds in Prague! 11.11.2016 we do diz.',
-            detailDescription: 'Owls included.'
-          }, {
-            name: 'Much-Mush-Rooming v2.0 near Krkonoše! JOIN NOW!',
-            description: 'We are looking for big ones only!',
-            detailDescription: 'We accept girls too.'
+            name: 'Název eventu',
+            description: 'Popis eventu',
+            detailDescription: 'Popis eventu detailní',
+            category: 'Kategorie1',
+            subcategory: 'Subkategorie1',
+            participantsMin: 15,
+            participantsMax: 15,
+            participantsConfirm: true,
+            street: 'Bolzanova',
+            city: 'Praha',
+            zipCode: '850 01',
+            startDate: new Date("December 17, 2016 03:24:00"),
+            endDate: new Date("December 17, 2016 06:24:00")
           }
         ], (error, data) => {
           if (error) {
