@@ -8,9 +8,7 @@
     "port": 27017,
     "url": "",
     "database": "user_team03",
-    "password": "xpi9ih3gpah7hm51",
     "name": "MongoHobbyHub",
-    "user": "team03",
     "connector": "mongodb"
   }
 }
