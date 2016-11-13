@@ -33,6 +33,46 @@
     "detailDescription": {
       "type": "string",
       "required": true
+    },
+    "category": {
+      "type": "string",
+      "required": true
+    },
+    "subcategory": {
+      "type": "string",
+      "required": true
+    },
+    "participantsMin": {
+      "type": "number",
+      "required": true
+    },
+    "participantsMax": {
+      "type": "number",
+      "required": true
+    },
+    "participantsConfirm": {
+      "type": "Boolean",
+      "required": true
+    },
+    "street": {
+      "type": "string",
+      "required": true
+    },
+    "city": {
+      "type": "string",
+      "required": true
+    },
+    "zipCode": {
+      "type": "string",
+      "required": true
+    },
+    "startDate": {
+      "type": "date",
+      "required": true
+    },
+    "endDate": {
+      "type": "date",
+      "required": true
     }
   },
   "validations": [],
