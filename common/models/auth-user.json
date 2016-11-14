@@ -21,6 +21,12 @@
       "principalId": "$owner",
       "permission": "ALLOW",
       "property": "__create__events"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
     }
   ],
   "methods": {}
