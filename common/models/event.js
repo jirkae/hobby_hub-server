@@ -10,8 +10,7 @@ module.exports = function(Event) {
     }, {
       score: {
         $meta: "textScore"
-      },
-      _id: 0
+      }
     }).sort({
       score: {
         $meta: "textScore"
@@ -19,6 +18,12 @@ module.exports = function(Event) {
     }).toArray(function(err, results) {
       if (err) {
         return callback(err)
+      }
+
+      var arrayLength = results.length;
+      for (var i = 0; i < arrayLength; i++) {
+        results[i].id = results[i]._id;
+        delete results[i]._id;
       }
       return callback(null, results);
     });
