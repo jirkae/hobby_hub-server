@@ -10,8 +10,7 @@ module.exports = function(Event) {
     }, {
       score: {
         $meta: "textScore"
-      },
-      _id: 1
+      }
     }).sort({
       score: {
         $meta: "textScore"
