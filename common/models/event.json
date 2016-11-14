@@ -36,11 +36,11 @@
     },
     "category": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "subcategory": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "participantsMin": {
       "type": "number",
@@ -52,7 +52,7 @@
     },
     "participantsConfirm": {
       "type": "Boolean",
-      "required": true
+      "required": false
     },
     "street": {
       "type": "string",
