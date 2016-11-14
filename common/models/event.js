@@ -11,7 +11,7 @@ module.exports = function(Event) {
       score: {
         $meta: "textScore"
       },
-      _id: 0
+      _id: 1
     }).sort({
       score: {
         $meta: "textScore"
