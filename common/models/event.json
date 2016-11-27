@@ -6,14 +6,12 @@
     "fulltext": {
       "keys": {
         "name": "text",
-        "description": "text",
-        "detailDescription": "text"
+        "description": "text"
       },
       "options": {
         "weights": {
           "name": 10,
-          "description": 5,
-          "detailDescription": 3
+          "description": 5
         }
       }
     }
@@ -30,17 +28,9 @@
       "type": "string",
       "required": true
     },
-    "detailDescription": {
-      "type": "string",
+    "tags": {
+      "type": "array",
       "required": true
-    },
-    "category": {
-      "type": "string",
-      "required": false
-    },
-    "subcategory": {
-      "type": "string",
-      "required": false
     },
     "participantsMin": {
       "type": "number",
@@ -77,31 +67,34 @@
   },
   "validations": [],
   "relations": {
-    "authUser": {
+    "participants": {
+      "type": "hasMany",
+      "model": "AuthUser",
+      "foreignKey": "eventId",
+      "through": "Participation",
+      "keyThrough": "participantId"
+    },
+    "owners": {
       "type": "belongsTo",
       "model": "AuthUser",
-      "foreignKey": ""
+      "foreignKey": "ownerId"
     }
   },
-  "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "READ",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "WRITE",
-      "principalType": "ROLE",
-      "principalId": "$owner",
-      "permission": "ALLOW"
-    }
-  ],
+  "acls": [{
+    "accessType": "*",
+    "principalType": "ROLE",
+    "principalId": "$everyone",
+    "permission": "DENY"
+  }, {
+    "accessType": "READ",
+    "principalType": "ROLE",
+    "principalId": "$everyone",
+    "permission": "ALLOW"
+  }, {
+    "accessType": "WRITE",
+    "principalType": "ROLE",
+    "principalId": "$owner",
+    "permission": "ALLOW"
+  }],
   "methods": {}
 }

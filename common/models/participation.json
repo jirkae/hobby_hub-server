@@ -1,0 +1,51 @@
+{
+  "name": "Participation",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "state": {
+      "type": "string",
+      "required": true,
+      "default": "pending"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "participant": {
+      "type": "belongsTo",
+      "model": "AuthUser",
+      "foreignKey": "participantId"
+    },
+    "event": {
+      "type": "belongsTo",
+      "model": "Event",
+      "foreignKey": "eventId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+     "accessType": "EXECUTE",
+     "principalType": "ROLE",
+     "principalId": "$authenticated",
+     "permission": "ALLOW",
+     "property": "toggleParticipation"
+   },
+   {
+    "accessType": "EXECUTE",
+    "principalType": "ROLE",
+    "principalId": "$authenticated",
+    "permission": "ALLOW",
+    "property": "toggleConfirmation"
+  }
+  ],
+  "methods": {}
+}

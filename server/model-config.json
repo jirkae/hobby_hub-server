@@ -40,5 +40,9 @@
   "AuthUser": {
     "dataSource": "MongoHobbyHub",
     "public": true
+  },
+  "Participation": {
+    "dataSource": "MongoHobbyHub",
+    "public": true
   }
 }
