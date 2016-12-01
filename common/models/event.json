@@ -28,6 +28,10 @@
       "type": "string",
       "required": true
     },
+    "detailedDescription": {
+      "type": "string",
+      "required": true
+    },
     "tags": {
       "type": "array",
       "required": true
