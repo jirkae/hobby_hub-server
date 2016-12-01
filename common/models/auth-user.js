@@ -32,4 +32,15 @@ module.exports = function(AuthUser) {
     }
   });
 
+  AuthUser.beforeRemote('prototype.__create__ownEvents', function(ctx, unused, next) {
+    ctx.args["data"].dateCreated = new Date();
+    ctx.args["data"].dateUpdated = new Date();
+    next();
+  });
+
+  AuthUser.beforeRemote('prototype.__updateById__ownEvents', function(ctx, unused, next) {
+    ctx.args["data"].dateUpdated = new Date();
+    next();
+  });
+
 };

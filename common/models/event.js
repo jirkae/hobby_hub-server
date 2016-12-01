@@ -103,4 +103,76 @@ module.exports = function(Event) {
     }
   });
 
+  Event.findByTagsOrCity = (tags, city, callback) => {
+    var EventCol = Event.dataSource.connector.collection(Event.modelName);
+
+    var query;
+
+    var tagInvalid = (typeof tags === "undefined") || (tags.length == 0);
+    var cityInvalid = (typeof city === "undefined") || (city.trim() == "");
+
+    if (!tagInvalid && !cityInvalid) {
+      query = {
+        $and: [
+          {
+            tags: {
+              $in: tags
+            }
+          }, {
+            "city": city
+          }
+        ]
+      };
+    } else if (tagInvalid && !cityInvalid) {
+      query = {
+        "city": city
+      };
+    } else if (!tagInvalid && cityInvalid) {
+      query = {
+        tags: {
+          $in: tags
+        }
+      };
+    } else {
+      query = {};
+    }
+
+    EventCol.find(query).toArray(function(err, results) {
+      if (err) {
+        return callback(err)
+      }
+
+      var arrayLength = results.length;
+      for (var i = 0; i < arrayLength; i++) {
+        results[i].id = results[i]._id;
+        delete results[i]._id;
+      }
+      return callback(null, results);
+    });
+  };
+
+  Event.remoteMethod('findByTagsOrCity', {
+    accepts: [
+      {
+        arg: 'tags',
+        type: 'array'
+      }, {
+        arg: 'city',
+        type: 'string'
+      }
+    ],
+    returns: {
+      arg: 'events',
+      type: 'array'
+    },
+    http: {
+      verb: 'get'
+    }
+  });
+
+  Event.beforeRemote('prototype.updateAttributes', function(ctx, unused, next) {
+    ctx.args["data"].dateUpdated = new Date();
+    next();
+  });
+
 };
