@@ -12,11 +12,13 @@ module.exports = function(AuthUser) {
     AuthUser.findOne({
       where: {
         id: currentUserId
-      }
+      },
+      fields: {id: false}
     }, (error, user) => {
       if (error) {
         return callback(error);
       }
+
       return callback(null, user);
     })
   }
