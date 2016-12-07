@@ -1,4 +1,5 @@
 'use strict';
+var https = require('https');
 
 module.exports = function(Event) {
   Event.findFulltext = (query, callback) => {
@@ -103,6 +104,43 @@ module.exports = function(Event) {
     }
   });
 
+  Event.getDistinctTags = (value, callback) => {
+    var EventCol = Event.dataSource.connector.collection(Event.modelName);
+    EventCol.distinct("tags", (error, results) => {
+      if (error) {
+        return callback(error);
+      }
+
+      let tags = [];
+      for (var i = 0; i < results.length; i++) {
+        if (results[i].constructor === String) {
+          if (results[i].startsWith(value)) {
+            tags[i] = {
+              name: results[i]
+            };
+          }
+        }
+      }
+      return callback(null, tags);
+    });
+  };
+
+  Event.remoteMethod('getDistinctTags', {
+    accepts: [
+      {
+        arg: 'value',
+        type: 'string'
+      }
+    ],
+    returns: {
+      arg: 'tags',
+      type: 'array'
+    },
+    http: {
+      verb: 'get'
+    }
+  });
+
   Event.findByTagsOrCity = (tags, city, callback) => {
     var EventCol = Event.dataSource.connector.collection(Event.modelName);
 
@@ -173,6 +211,61 @@ module.exports = function(Event) {
   Event.beforeRemote('prototype.updateAttributes', function(ctx, unused, next) {
     ctx.args["data"].dateUpdated = new Date();
     next();
+  });
+
+  Event.getCities = (value, callback) => {
+    if (value.length < 2) {
+      return callback({error: "Query value too short."});
+    }
+
+    var options = {
+      hostname: 'maps.googleapis.com',
+      path: '/maps/api/place/autocomplete/json?input=' + value + '&types=(cities)&components=country:cz&language=cs_CZ&key=AIzaSyBea5mqFSMMNYVwA7roQZhLFYXlGRHpddc',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    https.get(options, function(res) {
+      var body = '';
+
+      res.on('data', function(chunk) {
+        body += chunk;
+      });
+
+      res.on('end', function() {
+        var data = JSON.parse(body);
+
+        let cities = [];
+        for (var i = 0; i < data.predictions.length; i++) {
+          var prediction = data.predictions[i];
+          cities[i] = {
+            name: prediction.terms[0].value
+          };
+        }
+
+        return callback(null, cities);
+      });
+
+    }).on('error', function(e) {
+      return callback(e);
+    });
+  };
+
+  Event.remoteMethod('getCities', {
+    accepts: [
+      {
+        arg: 'value',
+        type: 'string'
+      }
+    ],
+    returns: {
+      arg: 'cities',
+      type: 'array'
+    },
+    http: {
+      verb: 'get'
+    }
   });
 
 };
