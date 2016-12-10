@@ -141,15 +141,15 @@ module.exports = function(Event) {
     }
   });
 
-  Event.findByTagsOrCity = (tags, city, callback) => {
+  Event.findByTagsOrCities = (tags, cities, callback) => {
     var EventCol = Event.dataSource.connector.collection(Event.modelName);
 
     var query;
 
-    var tagInvalid = (typeof tags === "undefined") || (tags.length == 0);
-    var cityInvalid = (typeof city === "undefined") || (city.trim() == "");
+    var tagsInvalid = (typeof tags === "undefined") || (tags.length == 0);
+    var citiesInvalid = (typeof cities === "undefined") || (cities.length == 0);
 
-    if (!tagInvalid && !cityInvalid) {
+    if (!tagsInvalid && !citiesInvalid) {
       query = {
         $and: [
           {
@@ -157,15 +157,19 @@ module.exports = function(Event) {
               $in: tags
             }
           }, {
-            "city": city
+            city: {
+              $in: cities
+            }
           }
         ]
       };
-    } else if (tagInvalid && !cityInvalid) {
+    } else if (tagsInvalid && !citiesInvalid) {
       query = {
-        "city": city
+        city: {
+          $in: cities
+        }
       };
-    } else if (!tagInvalid && cityInvalid) {
+    } else if (!tagsInvalid && citiesInvalid) {
       query = {
         tags: {
           $in: tags
@@ -189,14 +193,14 @@ module.exports = function(Event) {
     });
   };
 
-  Event.remoteMethod('findByTagsOrCity', {
+  Event.remoteMethod('findByTagsOrCities', {
     accepts: [
       {
         arg: 'tags',
         type: 'array'
       }, {
-        arg: 'city',
-        type: 'string'
+        arg: 'cities',
+        type: 'array'
       }
     ],
     returns: {
