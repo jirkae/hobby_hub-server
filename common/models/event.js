@@ -111,6 +111,8 @@ module.exports = function(Event) {
         return callback(error);
       }
 
+      value = value.charAt(0).toUpperCase() + value.slice(1);
+
       let res = [];
       for (var i = 0; i < results.length; i++) {
         if (results[i].constructor === String) {
