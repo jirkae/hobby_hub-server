@@ -45,7 +45,13 @@
     "principalId": "$authenticated",
     "permission": "ALLOW",
     "property": "toggleConfirmation"
-  }
+  },
+  {
+   "accessType": "READ",
+   "principalType": "ROLE",
+   "principalId": "$everyone",
+   "permission": "ALLOW"
+ }
   ],
   "methods": {}
 }

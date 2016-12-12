@@ -111,17 +111,18 @@ module.exports = function(Event) {
         return callback(error);
       }
 
-      let tags = [];
+      let res = [];
       for (var i = 0; i < results.length; i++) {
         if (results[i].constructor === String) {
-          if (results[i].startsWith(value)) {
-            tags[i] = {
+          if (results[i].startsWith(value) && results[i].trim() != "") {
+            //zmen na klasicky prirazovani do array a sleduj bug!
+            res.push({
               name: results[i]
-            };
+            });
           }
         }
       }
-      return callback(null, tags);
+      return callback(null, res);
     });
   };
 

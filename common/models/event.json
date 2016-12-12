@@ -75,6 +75,10 @@
     "dateUpdated": {
       "type": "date",
       "required": false
+    },
+    "price": {
+      "type": "number",
+      "required": false
     }
   },
   "validations": [],
