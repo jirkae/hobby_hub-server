@@ -14,7 +14,8 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "db",
+    "public": false
   },
   "AccessToken": {
     "dataSource": "db",
@@ -31,5 +32,17 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "Event": {
+    "dataSource": "user_team03",
+    "public": true
+  },
+  "Participation": {
+    "dataSource": "user_team03",
+    "public": true
+  },
+  "AppUser": {
+    "dataSource": "user_team03",
+    "public": true
   }
 }

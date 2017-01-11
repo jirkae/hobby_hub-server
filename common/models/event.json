@@ -1,0 +1,120 @@
+{
+  "name": "Event",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "indexes": {
+    "fulltext": {
+      "keys": {
+        "name": "text",
+        "description": "text"
+      },
+      "options": {
+        "weights": {
+          "name": 10,
+          "description": 5
+        }
+      }
+    }
+  },
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "detailedDescription": {
+      "type": "string",
+      "required": true
+    },
+    "tags": {
+      "type": "array",
+      "required": true
+    },
+    "participantsMin": {
+      "type": "number",
+      "required": true
+    },
+    "participantsMax": {
+      "type": "number",
+      "required": true
+    },
+    "participantsConfirm": {
+      "type": "Boolean",
+      "required": false
+    },
+    "street": {
+      "type": "string",
+      "required": true
+    },
+    "city": {
+      "type": "string",
+      "required": true
+    },
+    "zipCode": {
+      "type": "string",
+      "required": true
+    },
+    "startDate": {
+      "type": "date",
+      "required": true
+    },
+    "endDate": {
+      "type": "date",
+      "required": true
+    },
+    "dateCreated": {
+      "type": "date",
+      "required": false
+    },
+    "dateUpdated": {
+      "type": "date",
+      "required": false
+    },
+    "price": {
+      "type": "number",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "participants": {
+      "type": "hasMany",
+      "model": "AppUser",
+      "foreignKey": "eventId",
+      "through": "Participation",
+      "keyThrough": "participantId"
+    },
+    "owner": {
+      "type": "belongsTo",
+      "model": "AppUser",
+      "foreignKey": "ownerId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

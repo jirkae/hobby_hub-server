@@ -9,13 +9,14 @@
         "origin": true,
         "credentials": true,
         "maxAge": 86400
-      }
+      },
+      "loopback-context#per-request": {}
     },
     "helmet#xssFilter": {},
     "helmet#frameguard": {
       "params": [
         "deny"
-       ]
+      ]
     },
     "helmet#hsts": {
       "params": {
