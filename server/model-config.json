@@ -44,5 +44,13 @@
   "AppUser": {
     "dataSource": "user_team03",
     "public": true
+  },
+  "EventComment": {
+    "dataSource": "user_team03",
+    "public": true
+  },
+  "UserComment": {
+    "dataSource": "user_team03",
+    "public": true
   }
 }

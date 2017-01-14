@@ -7,7 +7,7 @@ const {
     GraphQLNonNull
 } = require("graphql");
 
-const {Event, AccessToken, EventInput} = require("../types/Types.js");
+const {Event, AccessToken, EventInput, EventComment} = require("../types/Types.js");
 
 var EventMutations = new GraphQLObjectType({
     name: "EventMutations",
@@ -85,9 +85,8 @@ var EventMutations = new GraphQLObjectType({
             args: { eventId: { type: new GraphQLNonNull(GraphQLString) } },
             resolve: function (parentValue, args, context) {
                 const {Participation} = context.app.models;
-                console.log(args.eventId);
                 return Participation
-                    .toggleParticipation(parentValue.token.userId, args.eventId)
+                    .toggleParticipation(parentValue.token.userId, args.eventId, parentValue.token)
                     .then((result) => {
                         return result;
                     })
@@ -102,12 +101,33 @@ var EventMutations = new GraphQLObjectType({
             resolve: function (parentValue, args, context) {
                 const {Participation} = context.app.models;
                 return Participation
-                    .toggleConfirmation(parentValue.token.userId, args.eventId)
+                    .toggleConfirmation(parentValue.token.userId, args.eventId, parentValue.token)
                     .then((result) => {
                         return result;
                     })
                     .catch((err) => {
                         return err
+                    });
+            }
+        },
+        newComment: {
+            type: EventComment,
+            args: { eventId: { type: GraphQLString }, text: { type: GraphQLString } },
+            resolve: function (parentValue, args, context) {
+                var data = {
+                    text: args.text,
+                    dateCreated: new Date(),
+                    userId: parentValue.token.userId,
+                    eventId: args.eventId
+                }
+                const {EventComment} = context.app.models;
+                //pridat overeni ze event existuje a ze muze user komentovat
+                return EventComment.create(data)
+                    .then((comment) => {
+                        return comment;
+                    })
+                    .catch((err) => {
+                        return err;
                     });
             }
         }

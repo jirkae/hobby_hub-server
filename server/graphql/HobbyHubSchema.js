@@ -11,6 +11,7 @@ const AppUsers = require("./queries/AppUsers.js");
 const EventByID = require("./queries/EventByID.js");
 const EventByName = require("./queries/EventByName.js");
 const EventByDesc = require("./queries/EventByDesc.js");
+const EventByTagsOrCities = require("./queries/EventByTagsOrCities.js");
 const UserByID = require("./queries/UserByID.js");
 const CurrentUser = require("./queries/CurrentUser.js");
 const DistinctTags = require("./queries/DistinctTags.js");
@@ -30,6 +31,7 @@ const Query = new GraphQLObjectType({
     eventByID: EventByID,
     eventByName: EventByName,
     eventByDesc: EventByDesc,
+    eventByTagsOrCities: EventByTagsOrCities,
     userByID: UserByID,
     currentUser: CurrentUser,
     distinctTags: DistinctTags,

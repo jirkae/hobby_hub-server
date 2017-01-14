@@ -15,7 +15,7 @@ const EventByID = {
         const {EventID} = args;
 
         return Event
-            .findById(EventID)
+            .findById(EventID, {include: ["owner", "eventComments"]})
             .then((event) => { return event })
             .catch((err) => { return err });
     }

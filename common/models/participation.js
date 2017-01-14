@@ -4,12 +4,18 @@ var app = require('../../server/server');
 
 module.exports = function (Participation) {
 
-  Participation.toggleParticipation = (userId, eventId) => {
+  Participation.toggleParticipation = (userId, eventId, token) => {
     return new Promise(function (resolve, reject) {
       //user check
       var ctx = LoopBackContext.getCurrentContext();
       var currentUser = ctx && ctx.get('currentUser');
-      var currentUserId = currentUser['id'];
+      var currentUserId;
+      if (currentUser) {
+        currentUserId = currentUser['id'];
+      }
+      else {
+        currentUserId = token.userId;
+      }
 
       //is there any such event?
       var Event = app.models.Event;
@@ -91,12 +97,18 @@ module.exports = function (Participation) {
     }
   });
 
-  Participation.toggleConfirmation = (userId, eventId) => {
+  Participation.toggleConfirmation = (userId, eventId, token) => {
     return new Promise(function (resolve, reject) {
       //currentUser
       var ctx = LoopBackContext.getCurrentContext();
       var currentUser = ctx && ctx.get('currentUser');
-      var currentUserId = currentUser['id'];
+      var currentUserId;
+      if (currentUser) {
+        currentUserId = currentUser['id'];
+      }
+      else {
+        currentUserId = token.userId;
+      }
 
       //is there any such event?
       var Event = app.models.Event;

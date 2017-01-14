@@ -12,7 +12,7 @@ const AppUsers = {
         const {AppUser} = context.app.models;
 
         return AppUser
-        .find({include: ["ownEvents"]})
+        .find({include: ["ownEvents", "myUserComments", "otherUsersComments"]})
         .then((users) => {return users})
         .catch((err) => {return err});
     }

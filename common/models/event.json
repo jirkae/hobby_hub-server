@@ -94,6 +94,11 @@
       "type": "belongsTo",
       "model": "AppUser",
       "foreignKey": "ownerId"
+    },
+    "eventComments": {
+      "type": "hasMany",
+      "model": "EventComment",
+      "foreignKey": "eventId"
     }
   },
   "acls": [

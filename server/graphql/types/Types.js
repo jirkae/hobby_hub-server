@@ -75,6 +75,18 @@ var AppUser = new GraphQLObjectType({
                         return events;
                     })
             }
+        },
+        myUserComments: {
+            type: new GraphQLList(UserComment),
+            resolve: function (parent, args, context) {
+                return parent.myUserComments();
+            }
+        },
+        otherUsersComments: {
+            type: new GraphQLList(UserComment),
+            resolve: function (parent, args, context) {
+                return parent.otherUsersComments();
+            }
         }
     })
 });
@@ -140,6 +152,12 @@ var Event = new GraphQLObjectType({
                         })
                         return participants;
                     })
+            }
+        },
+        comments: {
+            type: new GraphQLList(EventComment),
+            resolve: function (parent, args, context) {
+                return parent.eventComments();
             }
         }
     })
@@ -218,3 +236,28 @@ var RegistrationInput = new GraphQLInputObjectType({
 });
 
 exports.RegistrationInput = RegistrationInput;
+
+var EventComment = new GraphQLObjectType({
+    name: "EventComment",
+    description: "This represents the event comment.",
+    fields: {
+        id: { type: GraphQLID },
+        text: { type: GraphQLString },
+        dateCreated: { type: GraphQLString }
+    }
+});
+
+exports.EventComment = EventComment;
+
+var UserComment = new GraphQLObjectType({
+    name: "UserComment",
+    description: "This represents the user comment.",
+    fields: {
+        id: { type: GraphQLID },
+        text: { type: GraphQLString },
+        dateCreated: { type: GraphQLString },
+        rating: { type: GraphQLInt }
+    }
+});
+
+exports.UserComment = UserComment;

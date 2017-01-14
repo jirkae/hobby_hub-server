@@ -44,6 +44,20 @@ var AuthMutations = new GraphQLObjectType({
                         return err
                     });
             }
+        },
+        logout: {
+            type: GraphQLString,
+            args: { token: { type: new GraphQLNonNull(GraphQLString) } },
+            resolve: function (parentValue, args, context) {
+                const {AppUser} = context.app.models;
+                return AppUser.logout(args.token)
+                    .then((result) => {
+                        return result;
+                    })
+                    .catch((err) => {
+                        return err
+                    });
+            }
         }
     }
 });

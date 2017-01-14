@@ -1,23 +1,25 @@
-
 'use strict';
 const {
     GraphQLList,
-    GraphQLInt
+    GraphQLNonNull,
+    GraphQLString
 } = require("graphql");
 
 const {Event} = require("../types/Types.js");
 
-const Events = {
+const EventByTagsOrCities = {
     type: new GraphQLList(Event),
-    args: { first: { type: GraphQLInt } },
+    args: { tags: { type: new GraphQLList(GraphQLString) },
+            cities: { type: new GraphQLList(GraphQLString) } },
     resolve: function (rootValue, args, context) {
         const {Event} = context.app.models;
-        const {first} = args;
+        const {tags, cities} = args;
+
         return Event
-            .find({ limit: first, order: "dateCreated DESC", include: ["owner", "eventComments"] })
+            .findByTagsOrCities(tags, cities)
             .then((events) => { return events })
             .catch((err) => { return err });
     }
 }
 
-module.exports = Events;
+module.exports = EventByTagsOrCities;

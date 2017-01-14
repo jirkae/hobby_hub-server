@@ -15,7 +15,7 @@ const UserByID = {
         const {UserID} = args;
 
         return AppUser
-            .findById(UserID)
+            .findById(UserID, {include: ["ownEvents", "myUserComments", "otherUsersComments"]})
             .then((user) => { return user })
             .catch((err) => { return err });
     }

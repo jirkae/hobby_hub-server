@@ -36,6 +36,21 @@
       "foreignKey": "participantId",
       "through": "Participation",
       "keyThrough": "eventId"
+    },
+    "eventComments": {
+      "type": "hasMany",
+      "model": "EventComment",
+      "foreignKey": "userId"
+    },
+    "myUserComments": {
+      "type": "hasMany",
+      "model": "UserComment",
+      "foreignKey": "commenterId"
+    },
+    "otherUsersComments": {
+      "type": "hasMany",
+      "model": "UserComment",
+      "foreignKey": "targetUserId"
     }
   },
   "acls": [
