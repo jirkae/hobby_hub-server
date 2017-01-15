@@ -97,11 +97,11 @@ var EventMutations = new GraphQLObjectType({
         },
         toggleConfirmation: {
             type: GraphQLString,
-            args: { eventId: { type: new GraphQLNonNull(GraphQLString) } },
+            args: { eventId: { type: new GraphQLNonNull(GraphQLString) }, userId: { type: new GraphQLNonNull(GraphQLString) } },
             resolve: function (parentValue, args, context) {
                 const {Participation} = context.app.models;
                 return Participation
-                    .toggleConfirmation(parentValue.token.userId, args.eventId, parentValue.token)
+                    .toggleConfirmation(args.userId, args.eventId, parentValue.token)
                     .then((result) => {
                         return result;
                     })
