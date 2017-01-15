@@ -85,7 +85,7 @@ var AppUser = new GraphQLObjectType({
         otherUsersComments: {
             type: new GraphQLList(UserComment),
             resolve: function (parent, args, context) {
-                return parent.otherUsersComments();
+                return parent.otherUsersComments({include: "commenter"});
             }
         }
     })
@@ -157,7 +157,7 @@ var Event = new GraphQLObjectType({
         comments: {
             type: new GraphQLList(EventComment),
             resolve: function (parent, args, context) {
-                return parent.eventComments();
+                return parent.eventComments({ include: "appUser" });
             }
         }
     })
@@ -243,7 +243,13 @@ var EventComment = new GraphQLObjectType({
     fields: {
         id: { type: GraphQLID },
         text: { type: GraphQLString },
-        dateCreated: { type: GraphQLString }
+        dateCreated: { type: GraphQLString },
+        user: {
+            type: AppUser,
+            resolve: function (parent, args, context) {
+                return parent.appUser();
+            }
+        }
     }
 });
 
@@ -256,7 +262,13 @@ var UserComment = new GraphQLObjectType({
         id: { type: GraphQLID },
         text: { type: GraphQLString },
         dateCreated: { type: GraphQLString },
-        rating: { type: GraphQLInt }
+        rating: { type: GraphQLInt },
+        user: {
+            type: AppUser,
+            resolve: function (parent, args, context) {
+                return parent.commenter();
+            }
+        }
     }
 });
 
