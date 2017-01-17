@@ -33,6 +33,7 @@ var AppUser = new GraphQLObjectType({
         lastName: { type: GraphQLString },
         phoneNumber: { type: GraphQLString },
         info: { type: GraphQLString },
+        interests: { type: new GraphQLList(GraphQLString) },
         ownEvents: {
             type: new GraphQLList(Event),
             resolve: function (parent, args, context) {
@@ -85,7 +86,7 @@ var AppUser = new GraphQLObjectType({
         otherUsersComments: {
             type: new GraphQLList(UserComment),
             resolve: function (parent, args, context) {
-                return parent.otherUsersComments({include: "commenter"});
+                return parent.otherUsersComments({ include: "commenter" });
             }
         }
     })
@@ -111,6 +112,8 @@ var Event = new GraphQLObjectType({
         dateCreated: { type: GraphQLString },
         dateUpdated: { type: GraphQLString },
         price: { type: GraphQLInt },
+        lat: { type: GraphQLString },
+        lng: { type: GraphQLString },
         ownerId: { type: GraphQLID },
         owner: {
             type: AppUser,
@@ -203,7 +206,9 @@ var EventInput = new GraphQLInputObjectType({
         zipCode: { type: GraphQLString },
         startDate: { type: GraphQLString },
         endDate: { type: GraphQLString },
-        price: { type: GraphQLInt }
+        price: { type: GraphQLInt },
+        lat: { type: GraphQLString },
+        lng: { type: GraphQLString }
     }
 });
 
@@ -218,7 +223,8 @@ var UserInput = new GraphQLInputObjectType({
         firstName: { type: GraphQLString },
         lastName: { type: GraphQLString },
         phoneNumber: { type: GraphQLString },
-        info: { type: GraphQLString }
+        info: { type: GraphQLString },
+        interests: { type: new GraphQLList(GraphQLString) }
     }
 });
 

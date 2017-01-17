@@ -21,6 +21,10 @@
     "phoneNumber": {
       "type": "string",
       "required": false
+    },
+    "interests": {
+      "type": "array",
+      "required": false
     }
   },
   "validations": [],

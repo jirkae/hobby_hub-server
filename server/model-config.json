@@ -43,7 +43,10 @@
   },
   "AppUser": {
     "dataSource": "user_team03",
-    "public": true
+    "public": true,
+    "options": {
+      "emailVerificationRequired": true
+    }
   },
   "EventComment": {
     "dataSource": "user_team03",
@@ -52,5 +55,8 @@
   "UserComment": {
     "dataSource": "user_team03",
     "public": true
+  },
+  "Email": {
+    "dataSource": "myEmail"
   }
 }

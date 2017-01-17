@@ -6,6 +6,7 @@ const {
     GraphQLObjectType,
     GraphQLNonNull
 } = require("graphql");
+var path = require('path');
 
 const {RegistrationInput, AccessToken, AppUser} = require("../types/Types.js");
 
@@ -23,7 +24,19 @@ var AuthMutations = new GraphQLObjectType({
 
                 return AppUser.create(data)
                     .then((user) => {
-                        return user;
+                        var options = {
+                            type: 'email',
+                            to: user.email,
+                            from: 'hobbyhubnoreply@gmail.com',
+                            subject: 'Thanks for registering.',
+                            template: path.resolve(__dirname, '../../views/verify.ejs'),
+                            redirect: 'http://dev.frontend.team03.vse.handson.pro',
+                            user: user
+                        };
+
+                        return user.verify(options)
+                            .then(response => { return user })
+                            .catch(err => err);
                     })
                     .catch((err) => {
                         return err
