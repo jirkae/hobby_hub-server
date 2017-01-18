@@ -4,6 +4,7 @@ const {
     GraphQLString,
     GraphQLList,
     GraphQLInt,
+    GraphQLFloat,
     GraphQLID,
     GraphQLNonNull,
     GraphQLInputObjectType,
@@ -112,8 +113,8 @@ var Event = new GraphQLObjectType({
         dateCreated: { type: GraphQLString },
         dateUpdated: { type: GraphQLString },
         price: { type: GraphQLInt },
-        lat: { type: GraphQLString },
-        lng: { type: GraphQLString },
+        lat: { type: GraphQLFloat },
+        lng: { type: GraphQLFloat },
         ownerId: { type: GraphQLID },
         owner: {
             type: AppUser,
@@ -207,8 +208,8 @@ var EventInput = new GraphQLInputObjectType({
         startDate: { type: GraphQLString },
         endDate: { type: GraphQLString },
         price: { type: GraphQLInt },
-        lat: { type: GraphQLString },
-        lng: { type: GraphQLString }
+        lat: { type: GraphQLFloat },
+        lng: { type: GraphQLFloat }
     }
 });
 
