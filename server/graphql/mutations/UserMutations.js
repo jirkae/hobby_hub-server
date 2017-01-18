@@ -25,6 +25,10 @@ var UserMutations = new GraphQLObjectType({
                 return AppUser.findById(parentValue.token.userId)
                     .then((user) => {
                         if (user && user.id == parentValue.token.userId) {
+                            data.email = user.email;
+                            //tohle je docasny fix bugu, ktery se objevil pri updatu usera
+                            //loopback z nejakyho duvodu injectuje emailVerified do finalnich dat, ktery se updatujou
+                            //takze pri kazdym updatu se zmeni emailVerified na false
                             return user.updateAttributes(data)
                                 .then((user) => {
                                     return user;
