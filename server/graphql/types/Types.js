@@ -11,6 +11,7 @@ const {
     GraphQLBoolean
 } = require("graphql");
 
+const GraphQLDate = require('graphql-date');
 
 //  --- POZNAMKA ---
 //  Typy jsou v jednom souboru, protoze se mi nepodarilo
@@ -108,10 +109,10 @@ var Event = new GraphQLObjectType({
         street: { type: GraphQLString },
         city: { type: GraphQLString },
         zipCode: { type: GraphQLString },
-        startDate: { type: GraphQLString },
-        endDate: { type: GraphQLString },
-        dateCreated: { type: GraphQLString },
-        dateUpdated: { type: GraphQLString },
+        startDate: { type: GraphQLDate },
+        endDate: { type: GraphQLDate },
+        dateCreated: { type: GraphQLDate },
+        dateUpdated: { type: GraphQLDate },
         price: { type: GraphQLInt },
         lat: { type: GraphQLFloat },
         lng: { type: GraphQLFloat },
@@ -205,8 +206,8 @@ var EventInput = new GraphQLInputObjectType({
         street: { type: GraphQLString },
         city: { type: GraphQLString },
         zipCode: { type: GraphQLString },
-        startDate: { type: GraphQLString },
-        endDate: { type: GraphQLString },
+        startDate: { type: GraphQLDate },
+        endDate: { type: GraphQLDate },
         price: { type: GraphQLInt },
         lat: { type: GraphQLFloat },
         lng: { type: GraphQLFloat }
@@ -250,7 +251,7 @@ var EventComment = new GraphQLObjectType({
     fields: {
         id: { type: GraphQLID },
         text: { type: GraphQLString },
-        dateCreated: { type: GraphQLString },
+        dateCreated: { type: GraphQLDate },
         user: {
             type: AppUser,
             resolve: function (parent, args, context) {
@@ -268,7 +269,7 @@ var UserComment = new GraphQLObjectType({
     fields: {
         id: { type: GraphQLID },
         text: { type: GraphQLString },
-        dateCreated: { type: GraphQLString },
+        dateCreated: { type: GraphQLDate },
         rating: { type: GraphQLInt },
         user: {
             type: AppUser,
