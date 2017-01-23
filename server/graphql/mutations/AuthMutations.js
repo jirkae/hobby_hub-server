@@ -32,7 +32,7 @@ var AuthMutations = new GraphQLObjectType({
                             template: path.resolve(__dirname, '../../views/verify.ejs'),
                             redirect: 'http://frontend.team03.vse.handson.pro',
                             user: user,
-                            host: "backend.team03.vse.handson.pro",
+                            host: "dev.backend.team03.vse.handson.pro",
                             port: "80"
                         };
                         return user.verify(options)
