@@ -162,7 +162,7 @@ var Event = new GraphQLObjectType({
         comments: {
             type: new GraphQLList(EventComment),
             resolve: function (parent, args, context) {
-                return parent.eventComments({ include: "appUser" });
+                return parent.eventComments({ order: 'dateCreated DESC', include: "appUser" });
             }
         }
     })
